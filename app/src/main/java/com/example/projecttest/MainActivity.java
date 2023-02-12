@@ -19,4 +19,6 @@ public class MainActivity extends AppCompatActivity {
     public void onCommunication(View v) {
         startActivity(new Intent(this, CommunicationActivity.class));
     }
+
+
 }

@@ -20,11 +20,19 @@
             android:text="通信方式测试" />
 
         <Button
-            android:id="@+id/btn_communication"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="通信方式" />
+            android:text="测试1"
+            android:onClick="onTest1"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="测试1"
+            android:onClick="onTest2"/>
+
 
     </LinearLayout>
 

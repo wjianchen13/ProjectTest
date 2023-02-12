@@ -1,6 +1,11 @@
 # 项目相关测试
 1.
 
+这是什么意思
+    public PayCoreImpl() {
+        CoreManager.addClient(this);
+    }
+
 
 
 
