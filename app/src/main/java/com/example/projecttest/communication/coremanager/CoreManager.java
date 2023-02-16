@@ -21,6 +21,9 @@ public class CoreManager {
     public static final String TAG = "CoreManager";
     public static final String TAG_EVENT = "CoreManager_Event";
 
+    /**
+     *
+     */
     private static Map<Class<? extends ICoreClient>, CopyOnWriteArraySet<ICoreClient>> clients = new HashMap<>();
 
     private static Map<Class<? extends ICoreClient>, Map<String, Method>> clientMethods = new HashMap();

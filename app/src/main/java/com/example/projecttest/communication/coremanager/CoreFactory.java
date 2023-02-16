@@ -12,7 +12,16 @@ import java.util.HashMap;
  */
 public class CoreFactory {
 
+	/**
+	 * 当调用getCore(IPraiseCore.class)方法时，它会判断key对应的value是否为空，如果为空实例化对应的类
+	 * 这里就会调用对应类的构造函数PraiseCoreImpl.class，从而触发CoreManager.addClient(this) 方法
+	 */
 	public  static final HashMap<Class<? extends IBaseCore>, IBaseCore> cores;
+
+	/**
+	 * 这里仅保存注册相关的信息，例如 CoreFactory.registerCoreClass(IPraiseCore.class, PraiseCoreImpl.class);
+	 * IPraiseCore.class -> PraiseCoreImpl.class
+	 */
 	public  static final HashMap<Class<? extends IBaseCore>, Class<? extends AbstractBaseCore>> coreClasses;
 
 	static {
