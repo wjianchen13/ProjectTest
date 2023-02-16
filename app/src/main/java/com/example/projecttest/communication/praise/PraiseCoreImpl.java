@@ -22,7 +22,7 @@ public class PraiseCoreImpl extends AbstractBaseCore implements IPraiseCore {
     }
 
     @Override
-    public void praise(final long likedUid) {
+    public void praise(final int likedUid) {
         // handle something
         log("praise handle something");
 

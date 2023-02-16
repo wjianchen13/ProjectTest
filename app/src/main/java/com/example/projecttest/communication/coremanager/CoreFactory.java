@@ -4,7 +4,6 @@
  */
 package com.example.projecttest.communication.coremanager;
 
-
 import java.util.HashMap;
 
 /**

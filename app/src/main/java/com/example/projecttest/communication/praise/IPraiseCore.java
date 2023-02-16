@@ -16,7 +16,7 @@ public interface IPraiseCore extends IBaseCore {
      * 如果双方为相互喜欢，业务方像网易云发送直接加好友请求，双方直接成为好友。
      * 详见：
      */
-    void praise(long likedUid);
+    void praise(int likedUid);
 
 
 }

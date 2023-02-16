@@ -6,8 +6,6 @@
  */
 package com.example.projecttest.communication.coremanager;
 
-
-
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,21 +21,17 @@ public class CoreManager {
     public static final String TAG = "CoreManager";
     public static final String TAG_EVENT = "CoreManager_Event";
 
-    private static Map<Class<? extends ICoreClient>, CopyOnWriteArraySet<ICoreClient>> clients
-            = new HashMap<>();
+    private static Map<Class<? extends ICoreClient>, CopyOnWriteArraySet<ICoreClient>> clients = new HashMap<>();
+
+    private static Map<Class<? extends ICoreClient>, Map<String, Method>> clientMethods = new HashMap();
 
     private static Map<Class<?>, CopyOnWriteArraySet<Object>> coreEvents = new HashMap<>();
 
-    private static Map<Class<? extends ICoreClient>, Map<String, Method>> clientMethods
-            =   new HashMap();
-
     private static Map<Object, Map<String, Method>> coreEventMethods = new HashMap();
+
 
     public CoreManager() {
     }
-
-
-
 
     private static void addClientMethodsIfNeeded(Class<? extends ICoreClient> clientClass) {
         try {
@@ -363,7 +357,7 @@ public class CoreManager {
                 try {
                     method.invoke(c, args);
                 } catch (Throwable e) {
-
+                    e.printStackTrace();
                 }
             }
 

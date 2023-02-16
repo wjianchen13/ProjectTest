@@ -11,6 +11,7 @@ import com.example.projecttest.R;
 import com.example.projecttest.communication.coremanager.CoreEvent;
 import com.example.projecttest.communication.coremanager.CoreManager;
 import com.example.projecttest.communication.pay.IPayCoreClient;
+import com.example.projecttest.communication.praise.IPraiseClient;
 import com.example.projecttest.communication.praise.IPraiseCore;
 
 /**
@@ -22,6 +23,7 @@ public class CommunicationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communication);
+        CoreManager.addClient(this);
     }
 
     public void onTest1(View v) {
@@ -32,8 +34,8 @@ public class CommunicationActivity extends AppCompatActivity {
 
     }
 
-    @CoreEvent(coreClientClass = IPayCoreClient.class)
-    public void onDianDianCoinInfoUpdate(int count) {
+    @CoreEvent(coreClientClass = IPraiseClient.class)
+    public void onPraise(int count) {
         log("count: " + count);
     }
 
