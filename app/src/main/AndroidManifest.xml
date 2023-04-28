@@ -20,9 +20,13 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".communication.CommunicationActivity" />
+        <activity android:name=".communication.CommunicationActivity" />
+        <activity android:name=".scheduler.SchedulerActivity" />
 
     </application>
+
+
+
+
 
 </manifest>

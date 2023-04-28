@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.projecttest.communication.CommunicationActivity;
+import com.example.projecttest.scheduler.SchedulerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,5 +21,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, CommunicationActivity.class));
     }
 
+    public void onScheduler(View v) {
+        startActivity(new Intent(this, SchedulerActivity.class));
+    }
 
 }

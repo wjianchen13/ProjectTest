@@ -17,24 +17,30 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="项目相关测试" />
+            android:text="基础调度者" />
+
+        <ViewStub
+            android:id="@+id/flyt_anim"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:inflatedId="@+id/flyt_anim"
+            android:layout="@layout/view_live_chat_slide_item"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
 
         <Button
-            android:id="@+id/btn_communication"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="通信方式"
-            android:onClick="onCommunication"/>
-
+            android:text="测试1"
+            android:onClick="onTest1"/>
 
         <Button
-            android:id="@+id/btn_scheduler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="基础调度者"
-            android:onClick="onScheduler"/>
+            android:text="测试1"
+            android:onClick="onTest2"/>
 
 
     </LinearLayout>
