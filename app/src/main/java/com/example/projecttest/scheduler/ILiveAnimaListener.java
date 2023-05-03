@@ -6,6 +6,6 @@ package com.example.projecttest.scheduler;
  *
  */
 public interface ILiveAnimaListener {
-	void onAddAnima(BaseAnimManager<?> manager, String name, int size);
-	void onAnimaFinish(BaseAnimManager<?> manager, String name);
+	void onAddAnima(BaseAnimManager<?, ?> manager, String name, int size);
+	void onAnimaFinish(BaseAnimManager<?, ?> manager, String name);
 }

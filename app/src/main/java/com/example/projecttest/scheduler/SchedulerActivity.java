@@ -52,12 +52,12 @@ public class SchedulerActivity extends AppCompatActivity implements ILiveAnimaLi
     }
 
     @Override
-    public void onAddAnima(BaseAnimManager<?> manager, String name, int size) {
+    public void onAddAnima(BaseAnimManager<?, ?> manager, String name, int size) {
 
     }
 
     @Override
-    public void onAnimaFinish(BaseAnimManager<?> manager, String name) {
+    public void onAnimaFinish(BaseAnimManager<?, ?> manager, String name) {
 
     }
 }

@@ -22,11 +22,9 @@
         <ViewStub
             android:id="@+id/flyt_anim"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:inflatedId="@+id/flyt_anim"
-            android:layout="@layout/view_live_chat_slide_item"
-            android:visibility="invisible"
-            tools:visibility="visible"/>
+            android:layout_height="100dp"
+            android:inflatedId="@+id/flyt_anim1"
+            android:layout="@layout/view_live_chat_slide_item" />
 
         <Button
             android:layout_width="match_parent"

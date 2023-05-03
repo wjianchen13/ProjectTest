@@ -3,7 +3,7 @@ package com.example.projecttest.scheduler;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.view.ViewStub;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.MainThread;
@@ -12,18 +12,23 @@ import androidx.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
-public abstract class BaseAnimManager<T extends QueueAnimBean> extends QueueExecutor<T> {
+public abstract class BaseAnimManager<V extends ViewGroup, T extends QueueAnimBean> extends QueueExecutor<T> {
 
     @NonNull
-    private final WeakReference<Activity> mActivity;                    // context
-    protected FrameLayout mAnimParentView;           // 动画容器View
+    protected final WeakReference<Activity> mActivity;                    // context
+    protected ViewStub vs;
+    protected V mFrameLayout;           // 动画容器View
     protected String mAnimName;                      // 动画名称
     protected ILiveAnimaListener onLiveAnimaListener; // 用于监听礼物动画队列
     protected boolean isInit = false;
 
-    public BaseAnimManager(Activity activity, int parentViewResId, String animName, ILiveAnimaListener listener) {
+    public BaseAnimManager(Activity activity, int parentViewResId, String animName, ILiveAnimaListener listener, boolean isLazy) {
         mActivity = new WeakReference<>(activity);
-        mAnimParentView = (FrameLayout) activity.findViewById(parentViewResId);
+        if(isLazy) {
+            vs = activity.findViewById(parentViewResId);
+        } else {
+            mFrameLayout = activity.findViewById(parentViewResId);
+        }
         mAnimName = animName;
         onLiveAnimaListener = listener;
     }
@@ -32,20 +37,20 @@ public abstract class BaseAnimManager<T extends QueueAnimBean> extends QueueExec
     protected void onItemStart(@NonNull T bean) {
         super.onItemStart(bean);
         if (!isInit) {
-            lazyInitView();
+            lazyInitView(vs);
             isInit = true;
         }
-        if (mAnimParentView != null) {
-            mAnimParentView.setVisibility(View.VISIBLE);
-            mAnimParentView.removeAllViews();
+        if (mFrameLayout != null) {
+            mFrameLayout.setVisibility(View.VISIBLE);
+            mFrameLayout.removeAllViews();
         }
     }
 
     @Override
     protected void onItemEnd(@NonNull T bean) {
         super.onItemEnd(bean);
-        if (mAnimParentView != null)
-            mAnimParentView.removeAllViews();
+        if (mFrameLayout != null)
+            mFrameLayout.removeAllViews();
     }
 
     @Override
@@ -66,14 +71,14 @@ public abstract class BaseAnimManager<T extends QueueAnimBean> extends QueueExec
         Activity a = getActivity();
         return a != null
                 && bean.isSameRoom()
-                && mAnimParentView != null
-                && startAniming(a, bean, mAnimParentView);
+                && mFrameLayout != null
+                && startAniming(a, bean, mFrameLayout);
     }
 
     public abstract void addAnim(T animData);
     @MainThread
     protected abstract boolean startAniming(@NonNull Activity activity, @NonNull T animData, @NonNull ViewGroup parentView);
-    protected void lazyInitView() {}
+    protected void lazyInitView(ViewStub vs) {}
 
     @Override
     protected String getName(){
@@ -83,8 +88,8 @@ public abstract class BaseAnimManager<T extends QueueAnimBean> extends QueueExec
     @Override
     protected void onPause() {
         super.onPause();
-        if (mAnimParentView != null)
-            mAnimParentView.removeAllViews();
+        if (mFrameLayout != null)
+            mFrameLayout.removeAllViews();
     }
 
     @Override
@@ -114,8 +119,8 @@ public abstract class BaseAnimManager<T extends QueueAnimBean> extends QueueExec
     @CallSuper
     public void clearCurrentAnim() {
         reset();
-        if (mAnimParentView != null)
-            mAnimParentView.removeAllViews();
+        if (mFrameLayout != null)
+            mFrameLayout.removeAllViews();
     }
 
     /**
@@ -124,8 +129,8 @@ public abstract class BaseAnimManager<T extends QueueAnimBean> extends QueueExec
     @CallSuper
     public void clearAnim() {
         onDestroy();
-        if (mAnimParentView != null)
-            mAnimParentView.removeAllViews();
+        if (mFrameLayout != null)
+            mFrameLayout.removeAllViews();
         if (onLiveAnimaListener != null) {
             onLiveAnimaListener = null;
         }
@@ -134,13 +139,13 @@ public abstract class BaseAnimManager<T extends QueueAnimBean> extends QueueExec
     @CallSuper
     protected boolean onKeyboardStateChanged(boolean isKeyboardShowing){
         log("onKeyboardStateChanged:" + isKeyboardShowing);
-        if (mAnimParentView != null) {
+        if (mFrameLayout != null) {
             if (isKeyboardShowing) {
                 log("onKeyboardStateChanged, hide");
-                mAnimParentView.setVisibility(View.INVISIBLE);
+                mFrameLayout.setVisibility(View.INVISIBLE);
             } else if (isQueueCanRun()) {
                 log("onKeyboardStateChanged, show");
-                mAnimParentView.setVisibility(View.VISIBLE);
+                mFrameLayout.setVisibility(View.VISIBLE);
                 return true;
             }
         }
@@ -157,6 +162,8 @@ public abstract class BaseAnimManager<T extends QueueAnimBean> extends QueueExec
 
     public boolean isEmpty() {
         return isQueueEmpty();
+
+
     }
 
     @Nullable
